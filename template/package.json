@@ -5,6 +5,9 @@
     "test": "mocha --opts test/mocha.opts --require test/bootload.js test/*.test.oscript.js",
     "lint": "node ./node_modules/.bin/eslint --ext .js --max-warnings=0 test"
   },
+  "engines": {
+		"node": ">=8"
+	},
   "dependencies": {
     "chai": "^4.2.0",
     "mocha": "^6.2.0",
@@ -19,5 +22,9 @@
     "eslint-plugin-node": "^10.0.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1"
+  },
+  "resolutions": {
+    "chalk": "^3.0.0",
+    "cli-width": "^2.2.1"
   }
 }
