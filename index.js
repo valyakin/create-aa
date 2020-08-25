@@ -32,6 +32,7 @@ console.log(chalk.green(`Creating '${agentName}' from template...`))
 
 fs.ensureDirSync(agentName)
 fs.copySync(path.join(__dirname, './template'), agentName)
+fs.rename(path.join(agentName, '_gitignore'), path.join(agentName, '.gitignore'))
 
 const packageJson = require(path.join(__dirname, './template/package.json'))
 fs.writeFileSync(
