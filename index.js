@@ -96,7 +96,6 @@ function installDependencies () {
 	const args = isUsingYarn ? [] : ['install']
 
 	return new Promise((resolve, reject) => {
-		resolve()
 		const child = spawn(command, args, { stdio: 'inherit' })
 		child.on('close', code => {
 			if (code !== 0) {
