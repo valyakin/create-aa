@@ -11,9 +11,38 @@ const validateProjectName = require('validate-npm-package-name')
 
 const agentName = process.argv[2]
 
-if (process.argv.length !== 3) {
-	console.error(chalk.green('Usage: create-aa'), chalk.cyan('<directory-name>'))
+const availableTemplates = ['basic', 'custom-node']
+let template
+
+switch (process.argv.length) {
+case 3:
+	if (process.argv[2] === '-h') {
+		usage()
+		process.exit(1)
+	}
+	template = 'basic'
+	break
+
+case 5:
+	if (process.argv[3] !== '-t') {
+		usage()
+		process.exit(1)
+	}
+	template = process.argv[4]
+	break
+default:
+	usage()
 	process.exit(1)
+}
+
+if (!availableTemplates.includes(template)) {
+	usage()
+	process.exit(1)
+}
+
+function usage () {
+	console.error(chalk.green('Usage: create-aa'), chalk.cyan('<directory-name> -t <template-name>'))
+	console.error(chalk.yellow('Available templates: [', availableTemplates.join(', '), ']'))
 }
 
 const validationResult = validateProjectName(agentName)
@@ -31,10 +60,10 @@ if (!validationResult.validForNewPackages) {
 console.log(chalk.green(`Creating '${agentName}' from template...`))
 
 fs.ensureDirSync(agentName)
-fs.copySync(path.join(__dirname, './template'), agentName)
-fs.rename(path.join(agentName, '_gitignore'), path.join(agentName, '.gitignore'))
+fs.copySync(path.join(__dirname, './template', template), agentName)
+fs.copySync(path.join(__dirname, './template', '_gitignore'), path.join(agentName, '.gitignore'))
 
-const packageJson = require(path.join(__dirname, './template/package.json'))
+const packageJson = require(path.join(__dirname, './template', template, 'package.json'))
 fs.writeFileSync(
 	path.join(agentName, 'package.json'),
 	JSON.stringify({
@@ -67,6 +96,7 @@ function installDependencies () {
 	const args = isUsingYarn ? [] : ['install']
 
 	return new Promise((resolve, reject) => {
+		resolve()
 		const child = spawn(command, args, { stdio: 'inherit' })
 		child.on('close', code => {
 			if (code !== 0) {
