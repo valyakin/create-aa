@@ -1,14 +1,13 @@
-// Connector between user provided API and node interface for testkit
+// Connector between user app and node interface for testkit
 // Separate process runs this code
-// Import and run API code here
 
 const { Custom } = require('./kit')
-const API = require('../../api')
+const APP = require('../../app')
 
 class MyNodeChild extends Custom.Child {
 	// any initialization code goes here
 	run () {
-		this.api = new API()
+		this.app = new APP()
 	}
 
 	// `sendCustomCommand` from MyNode interface can be handled here
@@ -16,11 +15,11 @@ class MyNodeChild extends Custom.Child {
 		switch (payload.type) {
 		case 'get-chash':
 			// use `this.sendCustomMessage` to send arbitrary JSON data to MyNode
-			this.sendCustomMessage({ type: 'chash', chash: await this.api.getChash(payload.data) })
+			this.sendCustomMessage({ type: 'chash', chash: await this.app.getChash(payload.data) })
 			break
 
 		case 'get-my-witnesses':
-			this.sendCustomMessage({ type: 'my-witnesses', witnesses: await this.api.getMyWitnesses(payload.data) })
+			this.sendCustomMessage({ type: 'my-witnesses', witnesses: await this.app.getMyWitnesses(payload.data) })
 			break
 		}
 	}

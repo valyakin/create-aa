@@ -2,15 +2,15 @@
 
 Custom node provides the interface for integration with `aa-testkit`
 
-`api.js` - user provided API or script
+`app.js` - user provided app based on `headless-obyte` or script
 
 `test/custom-node/test.spec.js` - file with tests
 
 `test/custom-node/MyNode.js` - interface for node in testkit. Functions from this class can be used inside test file
 
-`test/custom-node/MyChild.js` - connector between node interface and user provided API.
+`test/custom-node/MyChild.js` - connector between node interface and user app.
 
-Use `MyChild` to run your API. `MyChild` will be run in separate process and communicate with `MyNode` via inter-process communication(IPC). `MyChild` process will run `ocore` itself. `MyNode` does not run  any `ocore` code. It is being used to connect `MyChild` with `aa-testkit`
+Use `MyChild` to run your app. `MyChild` will be run in separate process and communicate with `MyNode` via inter-process communication(IPC). `MyChild` process will run `ocore` itself. `MyNode` does not run  any `ocore` code. It is being used to connect `MyChild` with `aa-testkit`
 
 Use `this.sendCustomCommand` to send arbitrary JSON data from `MyNode` to `MyChild`. This messages can be handled inside `MyChild.handleCustomCommand` function
 

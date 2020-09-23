@@ -4,7 +4,7 @@ const headless = require('headless-obyte')
 const db = require('ocore/db.js')
 const objectHash = require('ocore/object_hash')
 
-class API {
+class APP {
 	getChash (data) {
 		const chash = objectHash.getChash160(data)
 		return chash
@@ -19,4 +19,4 @@ class API {
 	}
 }
 
-module.exports = API
+module.exports = APP
