@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "test": "mocha --opts test/mocha.opts --require test/bootload.js",
+    "test": "mocha --opts test/mocha.opts --require test/bootload.js test/custom-node/test.spec.js",
     "test:all": "mocha --opts test/mocha.opts --require test/bootload.js test/**/*.spec.js",
     "lint": "node ./node_modules/.bin/eslint --ext .js --max-warnings=0 test"
   },
