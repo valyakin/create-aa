@@ -7,8 +7,8 @@
     "lint": "node ./node_modules/.bin/eslint --ext .js --max-warnings=0 test"
   },
   "engines": {
-		"node": ">=8"
-	},
+    "node": ">=8"
+  },
   "dependencies": {
     "chai": "^4.2.0",
     "mocha": "^6.2.0",
@@ -26,6 +26,7 @@
   },
   "resolutions": {
     "chalk": "^3.0.0",
-    "cli-width": "^2.2.1"
+    "cli-width": "^2.2.1",
+    "level-rocksdb": "^4.0.0"
   }
 }
